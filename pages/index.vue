@@ -94,6 +94,10 @@
         </tr>
       </tbody>
     </table>
+
+    <!-- <UTable v-model="games" :rows="fields" /> -->
+
+    <UTable v-model="games" :rows="games" :columns="columns" />
   </div>
 </template>
 
@@ -130,6 +134,29 @@ const gameTypes: any[] = ["Standalone", "Expansion", "Expandalone", "Promo"];
 // const toggle = (event: any) => {
 //   menu.value.toggle(event);
 // };
+
+const columns = [
+  {
+    key: "id",
+    label: "ID",
+  },
+  {
+    key: "name",
+    label: "Name",
+  },
+  {
+    key: "player_count",
+    label: "Player Count",
+  },
+  {
+    key: "length",
+    label: "Length",
+  },
+  {
+    key: "difficulty",
+    label: "Difficulty",
+  },
+];
 
 const fields: Field[] = [
   {

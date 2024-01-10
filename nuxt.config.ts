@@ -1,21 +1,31 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import path from "path";
+import * as path from "path";
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     // '@nuxtjs/supabase',
     "@pinia/nuxt",
-    "nuxt-primevue",
+    "@nuxt/ui",
   ],
   typescript: {
     typeCheck: true,
   },
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
-    },
+
+  tailwindcss: {
+    cssPath: "~/assets/css/tailwind.css",
+    configPath: "tailwind.config",
+    exposeConfig: false,
+    exposeLevel: 2,
+    config: {},
+    injectPosition: "first",
+    viewer: true,
   },
-  css: ["~/styles/primevue.css"],
+  css: ["~/assets/css/tailwind.css"],
+  // postcss: {
+  //   plugins: {
+  //     tailwindcss: {},
+  //     autoprefixer: {},
+  //   },
+  // },
 });
