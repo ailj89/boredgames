@@ -1,7 +1,23 @@
 <template>
   <div>
     <h1 class="text-6xl font-bold m-2">{{ game.name }}</h1>
-    <p class="info font-normal px-3">{{ game.info }}</p>
+
+    <ul>
+      <li class="info font-normal px-3">{{ game.info }}</li>
+      <li class="info font-normal px-3">
+        {{ game.minplayers }}
+        <span v-if="game.maxplayers > 1"> - {{ game.maxplayers }} players</span>
+        <span v-else>player</span>
+      </li>
+      <li class="info font-normal px-3">
+        {{ game.minplaytime }}
+        <span v-if="game?.maxplaytime > game?.minplaytime">
+          - {{ game.maxplaytime }}
+        </span>
+        mins
+      </li>
+    </ul>
+
     <img src="" alt="" />
 
     <div class="expansions m-2">
@@ -20,10 +36,24 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import type { BoardGame } from "../../models/BoardGame.model";
+// import { useGamesStore } from "../../stores/games";
+
+// const gamesStore = useGamesStore();
+
+// onMounted(gamesStore.fetch_games);
+
+// const games = gamesStore.allgames;
+
+// console.log(games);
 
 const game = ref<BoardGame>({
+  comments: "1-5 Players\nSleeved",
+  minplayers: 1,
+  maxplayers: 5,
+  maxplaytime: 180,
+  minplaytime: 90,
   name: "Nemesis",
   id: 233,
   info: " Nemesis is a 1-5 player board game which may be played fully co-op or semi-co-op.",

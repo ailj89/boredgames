@@ -1,14 +1,14 @@
 <template>
   <div class="container mx-auto rounded-lg shadow-xl">
-    <table class="w-full mt-5">
+    <table v-if="null" class="w-full mt-5">
       <thead>
         <tr>
           <th
             class="text-left game-row"
-            v-for="(field, index) in fields"
+            v-for="(column, index) in columns"
             :key="index"
           >
-            {{ field.name }}
+            {{ column.label }}
           </th>
           <th class="game-row"></th>
         </tr>
@@ -16,10 +16,22 @@
       <tbody>
         <tr v-for="(game, index) in games" :key="index">
           <td class="game-row font-bold">
-            <NuxtLink :to="`/games/${game.id}`">{{ game.name }}</NuxtLink>
+            <NuxtLink :to="`/games/${index}`">{{ game.name }}</NuxtLink>
           </td>
-          <td class="game-row">{{ game.player_count }}</td>
-          <td class="game-row">{{ game.length }} mins</td>
+          <td class="game-row">
+            {{ game.minplayers }}
+            <span v-if="game.maxplayers > 1">
+              - {{ game.maxplayers }} players</span
+            >
+            <span v-else>player</span>
+          </td>
+          <td class="game-row">
+            {{ game.minplaytime }}
+            <span v-if="game?.maxplaytime > game?.minplaytime">
+              - {{ game.maxplaytime }}
+            </span>
+            mins
+          </td>
           <td class="game-row">{{ game.difficulty }}</td>
           <td class="game-row">
             <chip-component
@@ -95,172 +107,157 @@
       </tbody>
     </table>
 
-    <!-- <UTable v-model="games" :rows="fields" /> -->
+    <div class="table_container">
+      <UTable v-model="selected" :rows="rows" :columns="columns">
+        <template #name-data="{ row, index }">
+          <NuxtLink :to="`/games/${index}`" class="font-bold">{{
+            row.name
+          }}</NuxtLink>
+        </template>
 
-    <UTable v-model="games" :rows="games" :columns="columns" />
+        <template #player_count-data="{ row }">
+          {{ row.minplayers }}
+          <span v-if="row.maxplayers > 1"> - {{ row.maxplayers }} players</span>
+          <span v-else>player</span>
+        </template>
+
+        <template #length-data="{ row }">
+          {{ row.minplaytime }}
+          <span v-if="row?.maxplaytime > row?.minplaytime">
+            - {{ row.maxplaytime }}
+          </span>
+          mins
+        </template>
+
+        <template #actions-data="{ row }">
+          <UDropdown :items="items(row)">
+            <UButton
+              color="gray"
+              variant="ghost"
+              icon="i-heroicons-ellipsis-horizontal-20-solid"
+            />
+          </UDropdown>
+        </template>
+      </UTable>
+
+      <div
+        class="flex justify-end px-3 py-3.5 border-t border-gray-200 dark:border-gray-700"
+      >
+        <UPagination
+          v-model="page"
+          :page-count="pageCount"
+          :total="games.length"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { faker } from "@faker-js/faker";
-import { type BoardGame } from "../models/BoardGame.model";
-interface Field {
-  field: string;
-  hidden: boolean;
-  name: string;
-  moveable: boolean;
-}
+import { useGamesStore } from "../stores/games";
 
-const gameTypes: any[] = ["Standalone", "Expansion", "Expandalone", "Promo"];
+const gamesStore = useGamesStore();
+onMounted(gamesStore.fetch_games);
 
-// const menu = ref();
-// const items = ref([
-//   {
-//     label: "Options",
-//     items: [
-//       {
-//         label: "Refresh",
-//         icon: "pi pi-refresh",
-//       },
-//       {
-//         label: "Export",
-//         icon: "pi pi-upload",
-//       },
-//     ],
-//   },
-// ]);
+const games = computed(() => gamesStore.allgames);
 
-// const toggle = (event: any) => {
-//   menu.value.toggle(event);
-// };
+const page = ref(1);
+const pageCount = 30;
+
+const rows = computed(() => {
+  return games.value.slice(
+    (page.value - 1) * pageCount,
+    page.value * pageCount
+  );
+});
+
+const selected = ref([]);
 
 const columns = [
   {
-    key: "id",
-    label: "ID",
-  },
-  {
     key: "name",
     label: "Name",
+    sortable: true,
   },
   {
     key: "player_count",
     label: "Player Count",
+    sortable: true,
   },
   {
     key: "length",
     label: "Length",
+    sortable: true,
   },
   {
     key: "difficulty",
     label: "Difficulty",
+    sortable: true,
+  },
+  {
+    key: "themes",
+    label: "Themes",
+  },
+  {
+    key: "mechanics",
+    label: "Mechanics",
+  },
+  {
+    key: "type",
+    label: "Type",
+    sortable: true,
+  },
+  {
+    key: "videos",
+    label: "Videos",
+  },
+  {
+    key: "numplays",
+    label: "Plays",
+    sortable: true,
+  },
+  {
+    key: "info",
+    label: "Info",
+  },
+  {
+    key: "comments",
+    label: "Comments",
+  },
+  {
+    key: "actions",
   },
 ];
 
-const fields: Field[] = [
-  {
-    field: "name",
-    hidden: false,
-    moveable: false,
-    name: "Name",
-  },
-  {
-    field: "player_count",
-    hidden: false,
-    name: "Player Count",
-    moveable: true,
-  },
-  {
-    field: "length",
-    hidden: false,
-    name: "Length",
-    moveable: true,
-  },
-  {
-    field: "difficulty",
-    hidden: false,
-    name: "Difficulty",
-    moveable: true,
-  },
-  {
-    field: "themes",
-    hidden: false,
-    name: "Themes",
-    moveable: true,
-  },
-  {
-    field: "mechanics",
-    hidden: false,
-    name: "Mechanics",
-    moveable: true,
-  },
-  {
-    field: "type",
-    hidden: false,
-    name: "Type",
-    moveable: true,
-  },
-  {
-    field: "videos",
-    hidden: false,
-    name: "Videos",
-    moveable: true,
-  },
-  {
-    field: "plays",
-    hidden: false,
-    name: "Plays",
-    moveable: true,
-  },
-  {
-    field: "info",
-    hidden: true,
-    name: "Info",
-    moveable: true,
-  },
-  {
-    field: "comments",
-    hidden: true,
-    name: "Comments",
-    moveable: true,
-  },
+const items = (row: any) => [
+  [
+    {
+      label: "Edit",
+      icon: "i-heroicons-pencil-square-20-solid",
+      click: () => console.log("Edit", row.id),
+    },
+    {
+      label: "Duplicate",
+      icon: "i-heroicons-document-duplicate-20-solid",
+    },
+  ],
+  [
+    {
+      label: "Archive",
+      icon: "i-heroicons-archive-box-20-solid",
+    },
+    {
+      label: "Move",
+      icon: "i-heroicons-arrow-right-circle-20-solid",
+    },
+  ],
+  [
+    {
+      label: "Delete",
+      icon: "i-heroicons-trash-20-solid",
+    },
+  ],
 ];
-
-const games = ref<BoardGame[]>([
-  {
-    comments: "Some comments",
-    difficulty: 3,
-    id: 233,
-    info: "Game information",
-    length: "45 - 60",
-    mechanics: ["Mechanic 1", "Mechanic 2"],
-    name: "Nemesis",
-    player_count: "2-5",
-    plays: 10,
-    themes: ["Theme 1", "Theme 2"],
-    type: "Standalone",
-    videos: [
-      { type: "How To Play", url: "" },
-      { type: "Setup", url: "" },
-    ],
-  },
-  {
-    comments: "Some comments",
-    difficulty: 3,
-    id: 331,
-    info: "Game information",
-    length: "15 - 30",
-    mechanics: ["Mechanic 1", "Mechanic 2"],
-    name: "My Game",
-    player_count: "1-4",
-    plays: 10,
-    themes: ["Theme 1", "Theme 2"],
-    type: "Expansion",
-    videos: [
-      { type: "How To Play", url: "" },
-      { type: "Setup", url: "" },
-    ],
-  },
-]);
 </script>

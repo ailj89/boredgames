@@ -22,6 +22,9 @@ export default defineNuxtConfig({
     viewer: true,
   },
   css: ["~/assets/css/tailwind.css"],
+  // env: {
+  //   DB_HOST: process.env.DB_HOST,
+  // },
   // postcss: {
   //   plugins: {
   //     tailwindcss: {},

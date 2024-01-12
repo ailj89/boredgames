@@ -1,13 +1,26 @@
 export type BoardGame = {
   comments?: string;
+  date_acquired?: string;
   difficulty?: number;
+  expansions?: Array<any>;
+  has_expansion?: boolean;
+  id?: number;
   image?: string;
   info?: string;
+  is_expansion?: boolean;
+  is_promo?: boolean;
   length?: string;
   mechanics?: string[];
+  minplayers: number;
+  maxplayers: number;
+  minplaytime?: number;
+  maxplaytime?: number;
   name: string;
-  player_count?: string;
   plays?: number;
+  price?: number;
+  rating?: number;
+  released?: string;
+  setup_images?: string[];
   themes?: string[];
   type?:
     | "Standalone"
@@ -15,12 +28,6 @@ export type BoardGame = {
     | "Expandandalone"
     | "Promo"
     | "Modular"
-    | "Cosmetics";
+    | "Cosmetic";
   videos?: Array<{ type: string; url?: string }>;
-  id?: number;
-  has_expansion?: boolean;
-  expansions?: Array<any>;
-  is_expansion?: boolean;
-  is_promo?: boolean;
-  setup_images?: string[];
 };
