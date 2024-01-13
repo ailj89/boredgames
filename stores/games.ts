@@ -8,9 +8,9 @@ export const useGamesStore = defineStore("allgames", () => {
 
   const fetch_games = async () => {
     const gamesFetched = await getBoardGames();
-    console.log(gamesFetched);
+    // console.log(gamesFetched);
     allgames.value = gamesFetched;
-    console.log(allgames.value);
+    // console.log(allgames.value);
   };
 
   return { allgames, fetch_games };

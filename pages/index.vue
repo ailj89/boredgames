@@ -16,7 +16,7 @@
       <tbody>
         <tr v-for="(game, index) in games" :key="index">
           <td class="game-row font-bold">
-            <NuxtLink :to="`/games/${index}`">{{ game.name }}</NuxtLink>
+            <NuxtLink :to="`/game/${game.id}`">{{ game.name }}</NuxtLink>
           </td>
           <td class="game-row">
             {{ game.minplayers }}
@@ -109,8 +109,8 @@
 
     <div class="table_container">
       <UTable v-model="selected" :rows="rows" :columns="columns">
-        <template #name-data="{ row, index }">
-          <NuxtLink :to="`/games/${index}`" class="font-bold">{{
+        <template #name-data="{ row }">
+          <NuxtLink :to="`/game/${row.id}`" class="font-bold">{{
             row.name
           }}</NuxtLink>
         </template>
