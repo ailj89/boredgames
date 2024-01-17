@@ -1,6 +1,6 @@
 <template>
   <div class="bg">
-    <img :src="`_nuxt/assets/images/home/${currentGame}`" alt="Collection" />
+    <img :src="`/images/home/${currentGame}`" alt="Collection" />
   </div>
   <div
     class="container mx-auto rounded-lg shadow-2xl text-center mt-20 bg-slate-800 opacity-85 p-10 text-white"
