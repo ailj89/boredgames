@@ -1,9 +1,12 @@
 export type BoardGame = {
+  base_games?: Array<any>;
   comments?: string;
   date_acquired?: string;
   difficulty?: number;
   expansions?: Array<any>;
+  goal?: string;
   has_expansion?: boolean;
+  has_setup?: boolean;
   id?: number;
   image?: string;
   info?: string;
@@ -21,6 +24,7 @@ export type BoardGame = {
   rating?: number;
   released?: string;
   setup_images?: string[];
+  setup_videos?: Array<{ type: string; url?: string }>;
   themes?: string[];
   type?:
     | "Standalone"

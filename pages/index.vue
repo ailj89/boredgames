@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, onBeforeUnmount } from "vue";
+import { onMounted, ref, onBeforeUnmount } from "vue";
 import getNextListItem from "../utils/getNextListItem";
 
 const currentGame = ref("_nuxt/assets/images/home/nemesis_intruders.jpg");
