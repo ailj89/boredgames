@@ -102,4 +102,11 @@ li {
   min-width: 50%;
   min-height: 50%;
 }
+
+@media screen and (max-width: 600px) {
+  .bg {
+    width: 100%;
+    height: 100%;
+  }
+}
 </style>

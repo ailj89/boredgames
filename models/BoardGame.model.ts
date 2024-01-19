@@ -1,6 +1,7 @@
 export type BoardGame = {
   base_games?: Array<any>;
   comments?: string;
+  components?: Array<any>;
   date_acquired?: string;
   difficulty?: number;
   expansions?: Array<any>;
