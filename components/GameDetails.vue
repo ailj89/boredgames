@@ -26,3 +26,12 @@
     <img src="" alt="" />
   </div>
 </template>
+
+<script setup lang="ts">
+defineProps({
+  game: {
+    type: Object,
+    required: true,
+  },
+});
+</script>

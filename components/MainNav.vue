@@ -38,7 +38,6 @@ nav {
   @apply bg-slate-700 fixed inset-y-0 left-0;
   padding-block: 2rem;
 }
-
 .nav-list {
   @apply m-0 p-0 list-none grid gap-4;
 }
@@ -52,8 +51,8 @@ nav {
   padding-inline: 2rem;
   margin-inline: 1rem 0;
   /* prevent animation glitch on right side */
-  /* box-shadow: 2px 0 0; */
-  /* @apply shadow-slate-800; */
+  box-shadow: 2px 0 0;
+  @apply shadow-slate-800;
 }
 
 .nav-list li.active {
@@ -70,24 +69,25 @@ nav {
 .nav-list li.active::before,
 .nav-list li.active::after {
   --border-radius: 1rem;
-
   content: "";
   position: absolute;
   width: var(--border-radius);
   height: var(--border-radius);
   right: 0rem;
-  background: var(--nav-bg);
+  @apply shadow-slate-700;
 }
 
 .nav-list li.active::before {
   border-radius: 0 0 var(--border-radius);
   top: calc(var(--border-radius) * -1);
-  box-shadow: 5px 5px 0 5px var(--body-bg);
+  box-shadow: 5px 5px 0 5px;
+  @apply shadow-slate-800;
 }
 
 .nav-list li.active::after {
   border-radius: 0 var(--border-radius) 0 0;
   bottom: calc(var(--border-radius) * -1);
-  box-shadow: 5px -5px 0 5px var(--body-bg);
+  box-shadow: 5px -5px 0 5px;
+  @apply shadow-slate-800;
 }
 </style>

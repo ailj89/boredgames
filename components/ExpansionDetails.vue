@@ -1,12 +1,12 @@
 <template>
   <div>
-    <game-details />
+    <game-details :game="game" />
 
     <div class="expansions m-2">
       <UDivider label="Base Game" />
       <h2 class="text-4xl font-bold mb-2">Base Game</h2>
       <div class="expansions">
-        <div v-for="(base, index) in game?.base_games" :key="index">
+        <div v-for="(base, index) in game.base_games" :key="index">
           <h3 class="text-3xl font-bold m-2">{{ base.name }}</h3>
           <p class="info font-normal px-3">{{ base.info }}</p>
         </div>
@@ -17,8 +17,8 @@
 
     <div class="expansions m-2">
       <h2 class="text-4xl font-bold mb-2">Expansions</h2>
-      <div class="expansions" v-if="game?.has_expansion">
-        <div v-for="(expansion, index) in game?.expansions" :key="index">
+      <div class="expansions" v-if="game.has_expansion">
+        <div v-for="(expansion, index) in game.expansions" :key="index">
           <h3 class="text-3xl font-bold m-2">{{ expansion.name }}</h3>
           <p class="info font-normal px-3">{{ expansion.info }}</p>
         </div>
@@ -31,3 +31,12 @@
     <game-setup />
   </div>
 </template>
+
+<script setup lang="ts">
+defineProps({
+  game: {
+    type: Object,
+    required: true,
+  },
+});
+</script>
