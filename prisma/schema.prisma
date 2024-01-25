@@ -1,0 +1,87 @@
+datasource db {
+    provider  = "postgresql"
+    url       = env("DATABASE_URL")
+    directUrl = env("DIRECT_DATABASE_URL") // plain connection with no pgBouncer (used for push & migrations)
+    // shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model User {
+    id       Int       @id @default(autoincrement())
+    name     String
+    email    String
+    // games      Game[]
+    // posts      Post[]
+    comments Comment[]
+    // likedPosts Post[]    @relation(name: "LikedPosts")
+    Post     Post[]
+    Post     Post?     @relation(fields: [postId], references: [id])
+    postId   Int?
+}
+
+model Post {
+    id        Int       @id @default(autoincrement())
+    title     String
+    text      String
+    createdAt DateTime  @default(dbgenerated("now()"))
+    author    User      @relation(fields: [authorId], references: [id])
+    authorId  Int
+    comments  Comment[]
+    likedBy   User[]    @relation(name: "LikedPosts")
+}
+
+model Comment {
+    id          Int       @id @default(autoincrement())
+    text        String
+    createdAt   DateTime  @default(dbgenerated("now()"))
+    game        Game      @relation(fields: [gameId], references: [id])
+    expansion   Expansion @relation(fields: [expansionId], references: [id])
+    gameId      Int
+    expansionId Int
+    // author      User     @relation(fields: [authorId], references: [id])
+    // authorId    Int
+    // post        Post     @relation(fields: [postId], references: [id])
+    // postsId     Int
+    User        User?     @relation(fields: [userId], references: [id])
+    userId      Int?
+    Post        Post?     @relation(fields: [postId], references: [id])
+    postId      Int?
+}
+
+model Game {
+    id          Int         @id @default(autoincrement())
+    name        String
+    isBaseGame  Boolean
+    expansions  Expansion[]
+    comments    Comment[]
+    numplays    Int?
+    minplayers  Int?
+    maxplayers  Int?
+    releasedate DateTime?
+    acquired    DateTime?
+    info        String?
+    type        String?
+    favorite    Boolean?
+    // owner      User        @relation(fields: [onwerId], references: [id])
+    // ownerId    Int
+}
+
+model Expansion {
+    id          Int       @id @default(autoincrement())
+    name        String
+    base        Game      @relation(fields: [gameId], references: [id])
+    gameId      Int
+    isExpansion Boolean
+    numplays    Int?
+    minplayers  Int?
+    maxplayers  Int?
+    releasedate DateTime?
+    acquired    DateTime?
+    info        String?
+    type        String?
+    favorite    Boolean?
+    comments    Comment[]
+}

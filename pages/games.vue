@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto rounded-lg shadow-xl">
+  <div class="rounded-lg shadow-xl">
     <div class="table_container">
       <UTable v-model="selected" :rows="rows" :columns="columns">
         <template #name-data="{ row }">

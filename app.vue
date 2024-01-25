@@ -3,7 +3,7 @@
     <header>
       <main-nav />
     </header>
-    <NuxtPage />
+    <NuxtPage class="container mx-auto mt-20" />
   </div>
 </template>
 

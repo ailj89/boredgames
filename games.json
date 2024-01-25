@@ -3505,15 +3505,39 @@
       "maxplaytime": 180,
       "minplaytime": 90,
       "released": 2018,
-      "type": "standalone",
+      "type": "Standalone",
       "pricepaid": 230,
       "acquired": "2019-01-02",
       "comments": "1-5 Players\nSleeved",
       "difficulty": null,
-      "info": null,
+      "info": " Nemesis is a 1-5 player board game which may be played fully co-op or semi-co-op.",
       "mechanics": null,
       "videos": null,
-      "id": 185
+      "id": 185,
+      "has_expansion": true,
+      "expansions": [
+        {
+          "name": "Aftermath",
+          "id": 187,
+          "info": "Aftermath is an expansion which takes place after the end of a game of Nemesis, hence the name. A new crew boards Nemesis to investigate what previously occured. Unbeknownst to them, a threat still remains.",
+          "type": "Modular",
+          "is_expansion": true
+        },
+        {
+          "name": "Void Seeders",
+          "id": 187,
+          "info": "Void Seeders is an expansion which replaces the Intruders with a new enemy type, Void Seeders. The crew is tasked with taking on a challening enemy that inflitrates their minds, causing illusions. May be used with Nemesis or Aftermath.",
+          "is_expansion": true,
+          "type": "Modular"
+        },
+        {
+          "name": "Kings",
+          "id": 12,
+          "info": "Kings is a cosmetic expansion which replaces the Queens of each race with a male counterpart.",
+          "is_expansion": true,
+          "type": "Cosmetic"
+        }
+      ]
     },
     {
       "name": "Nemesis: Achievement Cards",
@@ -3551,7 +3575,27 @@
       "info": null,
       "mechanics": null,
       "videos": null,
-      "id": 187
+      "id": 187,
+      "has_expansion": true,
+      "is_expansion": true,
+      "base_games": [
+        {
+          "name": "Nemesis",
+          "id": 185,
+          "info": " Nemesis is a 1-5 player board game which may be played fully co-op or semi-co-op.",
+          "is_expansion": false,
+          "type": "Standalone"
+        }
+      ],
+      "expansions": [
+        {
+          "name": "Nemesis: Kings",
+          "id": 12,
+          "info": "Kings is a cosmetic expansion which replaces the Queens of each race with a male counterpart.",
+          "is_expansion": true,
+          "type": "Cosmetic"
+        }
+      ]
     },
     {
       "name": "Nemesis: Blood Tests Deck",

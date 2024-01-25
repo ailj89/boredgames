@@ -58,15 +58,15 @@ nav {
 .nav-list li.active {
   @apply bg-slate-700 relative block;
   /* view-transition-name: nav; */
-  z-index: -1;
+  /* z-index: -1; */
   border-radius: 100vw 0 0 100vw;
 }
 
-::view-transition-group(nav) {
+/* ::view-transition-group(nav) {
   animation-duration: 1s;
-}
+} */
 
-.nav-list li.active::before,
+/* .nav-list li.active::before,
 .nav-list li.active::after {
   --border-radius: 1rem;
   content: "";
@@ -75,9 +75,9 @@ nav {
   height: var(--border-radius);
   right: 0rem;
   @apply shadow-slate-700;
-}
+} */
 
-.nav-list li.active::before {
+/* .nav-list li.active::before {
   border-radius: 0 0 var(--border-radius);
   top: calc(var(--border-radius) * -1);
   box-shadow: 5px 5px 0 5px;
@@ -89,5 +89,5 @@ nav {
   bottom: calc(var(--border-radius) * -1);
   box-shadow: 5px -5px 0 5px;
   @apply shadow-slate-800;
-}
+} */
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="text-6xl font-bold m-2">{{ game?.name }}</h1>
+    <h1 class="text-6xl font-bold mb-3">{{ game?.name }}</h1>
 
     <UDivider label="About" />
 

@@ -1,24 +1,33 @@
 {
   "name": "nuxt-app",
   "private": true,
-  "type": "module",
+  "_type": "module",
   "scripts": {
     "backend": "json-server --watch games.json",
     "build": "nuxt build",
     "dev": "nuxt dev --host",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "db-stop": "npx supabase stop --backup",
+    "db-start": "npx supabase start",
+    "init": "npx prisma migrate deploy && npx prisma db seed",
+    "update-types": "npx supabase gen types typescript --local --schema public > src/types/supabaseTypes.ts"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxt/types": "^2.13.2",
     "@nuxtjs/supabase": "^1.1.5",
+    "@prisma/client": "^5.8.1",
+    "@types/node": "^20.11.6",
     "autoprefixer": "^10.4.16",
     "json-server": "^1.0.0-alpha.19",
     "nuxt": "^3.9.0",
     "postcss": "^8.4.32",
+    "prisma": "^5.8.1",
+    "supabase": "^1.136.2",
     "tailwindcss": "^3.4.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
     "vue": "^3.4.3",
     "vue-router": "^4.2.5",
@@ -28,8 +37,14 @@
     "@faker-js/faker": "^8.3.1",
     "@nuxt/ui": "^2.12.0",
     "@pinia/nuxt": "^0.5.1",
+    "@prisma/client": "^4.10.1",
+    "@supabase/supabase-js": "^2.7.1",
     "axios": "^1.6.5",
     "pinia": "^2.1.7",
-    "sass": "^1.69.7"
+    "sass": "^1.69.7",
+    "tsx": "^4.7.0"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   }
 }

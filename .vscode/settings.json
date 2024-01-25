@@ -1,4 +1,14 @@
 {
+  "[typescript]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
+  "deno.enablePaths": [
+    "supabase/functions"
+  ],
+  "deno.lint": true,
+  "deno.unstable": true,
+  "peacock.color": "#832561",
+  "typescript.tsdk": "node_modules/typescript/lib",
   "workbench.colorCustomizations": {
     "activityBar.activeBackground": "#ab307e",
     "activityBar.background": "#ab307e",
@@ -17,7 +27,5 @@
     "titleBar.activeForeground": "#e7e7e7",
     "titleBar.inactiveBackground": "#83256199",
     "titleBar.inactiveForeground": "#e7e7e799"
-  },
-  "peacock.color": "#832561",
-  "typescript.tsdk": "node_modules/typescript/lib"
+  }
 }
